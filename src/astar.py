@@ -36,7 +36,7 @@ def astar_search(grid, start, goal, heuristic):
         raise ValueError("Goal cannot be on an obstacle.")
 
     open_set = []
-    heapq.heappush(open_set, (heuristic(start, goal), 0, start))
+    heapq.heappush(open_set, (heuristic(start, goal), 0, start)) # (f, g, node)
     came_from = {}
     g_score = {start: 0}
 
