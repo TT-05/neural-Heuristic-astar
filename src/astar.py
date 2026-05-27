@@ -1,6 +1,8 @@
 # astar.py
 # A* search algorithm.
 import heapq
+
+
 def astar_search(grid, start, goal, heuristic):
     """
     Perform A* search on the given grid from start to goal using the provided heuristic function.
@@ -12,13 +14,13 @@ def astar_search(grid, start, goal, heuristic):
     heuristic (function): A function that takes two coordinates and returns the estimated cost to reach the goal.
 
     Returns:
-    list of tuple: The path from start to goal as a list of coordinates. If no path is found, returns an empty list.
+    dict: Search result with keys "path", "cost", and "expanded".
     """
     rows = len(grid)
     cols = len(grid[0]) if rows > 0 else 0
 
     if rows == 0 or cols == 0:
-        return []
+        return {"path": [], "cost": -1, "expanded": 0}
 
     start_r, start_c = start
     goal_r, goal_c = goal
@@ -36,9 +38,10 @@ def astar_search(grid, start, goal, heuristic):
         raise ValueError("Goal cannot be on an obstacle.")
 
     open_set = []
-    heapq.heappush(open_set, (heuristic(start, goal), 0, start)) # (f, g, node)
+    heapq.heappush(open_set, (heuristic(start, goal), 0, start))  # (f, g, node)
     came_from = {}
     g_score = {start: 0}
+    expanded = 0
 
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
@@ -59,7 +62,7 @@ def astar_search(grid, start, goal, heuristic):
             return {
                 "path": path,
                 "cost": len(path) - 1,
-                "expanded": expanded
+                "expanded": expanded,
             }
 
         for dr, dc in directions:
@@ -84,5 +87,5 @@ def astar_search(grid, start, goal, heuristic):
     return {
         "path": [],
         "cost": -1,
-        "expanded": expanded
+        "expanded": expanded,
     }
