@@ -106,6 +106,12 @@ def grid_goal_tensor(grid, goal, device="cpu"):
     return torch.stack([obstacle, goal_map], dim=0)
 
 
+def distance_normalizer_for_grid(grid):
+    rows = len(grid)
+    cols = len(grid[0]) if rows else 0
+    return float(rows + cols)
+
+
 def load_mlp_heuristic(checkpoint_path, device="cpu"):
     model = MLPHeuristic().to(device)
     checkpoint = torch.load(checkpoint_path, map_location=device)
@@ -134,8 +140,9 @@ def make_mlp_heuristic(model, device="cpu"):
 
 def make_unet_heuristic(model, grid, goal, device="cpu"):
     model_input = grid_goal_tensor(grid, goal, device=device).unsqueeze(0)
+    normalizer = distance_normalizer_for_grid(grid)
     with torch.no_grad():
-        prediction_grid = model(model_input).squeeze(0).cpu()
+        prediction_grid = model(model_input).squeeze(0).cpu() * normalizer
 
     def heuristic(current, unused_goal):
         return max(0.0, float(prediction_grid[current[0], current[1]]))

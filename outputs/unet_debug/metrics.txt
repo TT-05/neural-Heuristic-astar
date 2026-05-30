@@ -1,0 +1,10 @@
+valid_cells: 304
+mean_error: 0.38920826151182775
+mae: 1.255232377664039
+mse: 2.6411088595768892
+pct_pred_less_than_true: 38.48684210526316
+pct_pred_less_than_true_minus_3: 1.9736842105263157
+min_prediction: 1.4203274250030518
+max_prediction: 34.439048767089844
+min_true_distance: 0
+max_true_distance: 38

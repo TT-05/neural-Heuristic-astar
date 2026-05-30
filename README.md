@@ -11,7 +11,7 @@ Neural heuristic learning for A* pathfinding on grid maps.
 - `src/model.py`: defines Manhattan, MLP, and U-Net heuristic helpers.
 - `src/train.py`: trains the MLP on BFS distance labels.
 - `src/train_unet.py`: trains the U-Net to predict a full distance-to-goal map.
-- `src/evaluate.py`: compares Manhattan A*, MLP A*, and U-Net A* when checkpoints exist.
+- `src/evaluate.py`: compares Manhattan A*, MLP A*, U-Net A*, and a hybrid heuristic when checkpoints exist.
 
 ## Train MLP
 
@@ -49,8 +49,12 @@ The U-Net input has two channels:
 - goal-location map
 
 The output is a predicted distance-to-goal value for every grid cell.
+During training, U-Net distance labels are normalized by `rows + cols`.
+At inference time, predictions are multiplied by the same value before A* uses them.
+The training script prints both training loss and validation loss each epoch.
+The current default U-Net training run uses 500 random maps, 50 epochs, and batch size 16.
 
-## Evaluate
+## Evaluate And Debug
 
 Run from the `src` directory after training:
 
@@ -61,3 +65,17 @@ python3 evaluate.py
 
 Evaluation reports path length, expanded nodes, runtime, and whether each A* path
 matches the BFS shortest-path length.
+
+When a U-Net checkpoint exists, evaluation also writes debug outputs to:
+
+```text
+outputs/unet_debug/
+```
+
+The debug folder includes:
+
+- `true_distance_map.txt`
+- `predicted_distance_map.txt`
+- `error_map_pred_minus_true.txt`
+- `metrics.txt`
+- optional heatmap PNG files if matplotlib is installed

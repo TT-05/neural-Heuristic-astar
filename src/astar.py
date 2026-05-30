@@ -3,7 +3,7 @@
 import heapq
 
 
-def astar_search(grid, start, goal, heuristic):
+def astar_search(grid, start, goal, heuristic, diagnostics=None):
     """
     Perform A* search on the given grid from start to goal using the provided heuristic function.
 
@@ -12,6 +12,7 @@ def astar_search(grid, start, goal, heuristic):
     start (tuple): The starting coordinates (x, y).
     goal (tuple): The goal coordinates (x, y).
     heuristic (function): A function that takes two coordinates and returns the estimated cost to reach the goal.
+    diagnostics (dict, optional): If provided, expanded-node diagnostics are appended here.
 
     Returns:
     dict: Search result with keys "path", "cost", and "expanded".
@@ -38,10 +39,15 @@ def astar_search(grid, start, goal, heuristic):
         raise ValueError("Goal cannot be on an obstacle.")
 
     open_set = []
-    heapq.heappush(open_set, (heuristic(start, goal), 0, start))  # (f, g, node)
+    start_h = heuristic(start, goal)
+    heapq.heappush(open_set, (start_h, 0, start))  # (f, g, node)
     came_from = {}
     g_score = {start: 0}
     expanded = 0
+
+    if diagnostics is not None:
+        diagnostics.setdefault("expanded_nodes", [])
+        diagnostics.setdefault("max_expanded_logs", 25)
 
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
@@ -52,6 +58,17 @@ def astar_search(grid, start, goal, heuristic):
             continue
 
         expanded += 1
+
+        if diagnostics is not None and len(diagnostics["expanded_nodes"]) < diagnostics["max_expanded_logs"]:
+            current_h = heuristic(current, goal)
+            diagnostics["expanded_nodes"].append(
+                {
+                    "node": current,
+                    "g": current_g,
+                    "h": current_h,
+                    "f": current_g + current_h,
+                }
+            )
 
         if current == goal:
             path = [current]
