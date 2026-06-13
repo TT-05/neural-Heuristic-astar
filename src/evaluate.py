@@ -120,13 +120,23 @@ def compute_unet_error_metrics(true_grid, predicted_grid, valid_mask):
     abs_errors = [abs(error) for error in errors]
     squared_errors = [error * error for error in errors]
     underestimates = [error for error in errors if error < 0]
+    overestimates = [error for error in errors if error > 0]
     large_underestimates = [error for error in errors if error < -3]
+    large_overestimates = [error for error in errors if error > 3]
+    mse = sum(squared_errors) / len(squared_errors)
 
     return {
         "valid_cells": len(errors),
         "mean_error": sum(errors) / len(errors),
         "mae": sum(abs_errors) / len(abs_errors),
-        "mse": sum(squared_errors) / len(squared_errors),
+        "mse": mse,
+        "rmse": mse ** 0.5,
+        "underestimate_rate": len(underestimates) / len(errors),
+        "overestimate_rate": len(overestimates) / len(errors),
+        "large_underestimate_rate": len(large_underestimates) / len(errors),
+        "large_overestimate_rate": len(large_overestimates) / len(errors),
+        "max_underestimate": min(underestimates) if underestimates else 0.0,
+        "max_overestimate": max(overestimates) if overestimates else 0.0,
         "pct_pred_less_than_true": 100.0 * len(underestimates) / len(errors),
         "pct_pred_less_than_true_minus_3": 100.0 * len(large_underestimates) / len(errors),
         "min_prediction": min(predicted_values),
@@ -137,6 +147,12 @@ def compute_unet_error_metrics(true_grid, predicted_grid, valid_mask):
 
 
 def save_heatmap(path, values, title, valid_mask=None):
+    matplotlib_cache = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "outputs", "matplotlib_cache"
+    )
+    os.makedirs(matplotlib_cache, exist_ok=True)
+    os.environ.setdefault("MPLCONFIGDIR", matplotlib_cache)
+    os.environ.setdefault("MPLBACKEND", "Agg")
     try:
         import matplotlib.pyplot as plt
     except ModuleNotFoundError:

@@ -1,0 +1,5 @@
+structured_type,maps,mean_unet_minus_mlp_expanded,mean_unet_minus_manhattan_expanded,mean_mlp_minus_manhattan_expanded,unet_better_than_mlp_count,mlp_better_than_unet_count,tie_count
+bottleneck,400,13.1375,-12.01,-25.1475,40,312,48
+large_block,400,16.06,-15.095,-31.155,35,315,50
+maze_like,400,-0.64,-12.1675,-11.5275,161,186,53
+narrow_corridor,400,13.175,-0.7825,-13.9575,9,306,85

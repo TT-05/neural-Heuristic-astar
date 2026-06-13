@@ -1,0 +1,65 @@
+{
+  "category": "unet_better_than_manhattan",
+  "seed": 20,
+  "map_size": 20,
+  "obstacle_rate": 0.1,
+  "start": [
+    0,
+    0
+  ],
+  "goal": [
+    19,
+    19
+  ],
+  "optimal_cost": 38,
+  "heuristics": {
+    "dijkstra": {
+      "heuristic_type": "dijkstra",
+      "path_found": true,
+      "optimal": true,
+      "path_length": 38,
+      "expanded_nodes": 353,
+      "runtime_seconds": 0.000727250000636559,
+      "mae": 19.073654390934845,
+      "mse": 431.328611898017,
+      "overestimate_rate": 0.0,
+      "underestimate_rate": 0.9971671388101983
+    },
+    "manhattan": {
+      "heuristic_type": "manhattan",
+      "path_found": true,
+      "optimal": true,
+      "path_length": 38,
+      "expanded_nodes": 346,
+      "runtime_seconds": 0.0007772499993734527,
+      "mae": 0.24362606232294617,
+      "mse": 0.6005665722379604,
+      "overestimate_rate": 0.0,
+      "underestimate_rate": 0.10764872521246459
+    },
+    "mlp_table": {
+      "heuristic_type": "mlp_table",
+      "path_found": true,
+      "optimal": true,
+      "path_length": 38,
+      "expanded_nodes": 142,
+      "runtime_seconds": 0.0007497500009776559,
+      "mae": 0.9479317398314435,
+      "mse": 1.5962909924930477,
+      "overestimate_rate": 0.9348441926345609,
+      "underestimate_rate": 0.06232294617563739
+    },
+    "unet": {
+      "heuristic_type": "unet",
+      "path_found": true,
+      "optimal": true,
+      "path_length": 38,
+      "expanded_nodes": 243,
+      "runtime_seconds": 0.0013991249998070998,
+      "mae": 1.5361579217586572,
+      "mse": 4.770055723013984,
+      "overestimate_rate": 0.5439093484419264,
+      "underestimate_rate": 0.45609065155807366
+    }
+  }
+}

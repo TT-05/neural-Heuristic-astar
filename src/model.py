@@ -138,6 +138,27 @@ def make_mlp_heuristic(model, device="cpu"):
     return heuristic
 
 
+def make_mlp_table_heuristic(model, grid, goal, device="cpu"):
+    rows = len(grid)
+    cols = len(grid[0]) if rows else 0
+    features = []
+
+    for r in range(rows):
+        for c in range(cols):
+            features.append(heuristic_features((r, c), goal))
+
+    feature_tensor = torch.tensor(features, dtype=torch.float32, device=device)
+    with torch.no_grad():
+        predictions = model(feature_tensor).cpu()
+
+    prediction_grid = predictions.reshape(rows, cols)
+
+    def heuristic(current, unused_goal):
+        return max(0.0, float(prediction_grid[current[0], current[1]]))
+
+    return heuristic
+
+
 def make_unet_heuristic(model, grid, goal, device="cpu"):
     model_input = grid_goal_tensor(grid, goal, device=device).unsqueeze(0)
     normalizer = distance_normalizer_for_grid(grid)

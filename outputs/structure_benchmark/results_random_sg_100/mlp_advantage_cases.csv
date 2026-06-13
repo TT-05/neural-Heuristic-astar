@@ -1,0 +1,125 @@
+case_id,seed,obstacle_rate,start_goal_mode,start,goal,structure_labels,optimal_cost,path_stretch,corridor_rate,articulation_count,manhattan_expanded,mlp_table_expanded,unet_expanded,unet_mae,unet_overestimate_rate,unet_optimal
+random_rate0.1_seed3_s11-0_g0-19,3,0.1,random,"11,0","0,19",open space; multiple alternative routes,30.0,1.0,0.10555555555555556,0,210.0,64.0,140.0,1.3426734868023131,0.48333333333333334,True
+random_rate0.1_seed55_s0-9_g19-15,55,0.1,random,"0,9","19,15",open space; multiple alternative routes,25.0,1.0,0.0684931506849315,4,132.0,28.0,100.0,0.7528074708703446,0.1726027397260274,True
+random_rate0.1_seed53_s15-9_g4-19,53,0.1,random,"15,9","4,19",open space; multiple alternative routes,21.0,1.0,0.09264305177111716,3,121.0,41.0,112.0,1.0118998175420943,0.3133514986376022,True
+random_rate0.1_seed25_s16-2_g0-17,25,0.1,random,"16,2","0,17",open space; multiple alternative routes,31.0,1.0,0.10084033613445378,3,212.0,102.0,169.0,0.940828434225558,0.35014005602240894,True
+random_rate0.2_seed17_s18-15_g0-5,17,0.2,random,"18,15","0,5",sparse obstacles; multiple alternative routes,28.0,1.0,0.2324159021406728,23,137.0,38.0,102.0,0.8352131191014515,0.3211009174311927,True
+random_rate0.1_seed79_s5-4_g14-16,79,0.1,random,"5,4","14,16",open space; multiple alternative routes,21.0,1.0,0.05929919137466307,1,112.0,34.0,90.0,0.6155074619539985,0.5013477088948787,True
+random_rate0.2_seed55_s2-10_g13-19,55,0.2,random,"2,10","13,19",sparse obstacles; multiple alternative routes,20.0,1.0,0.1791044776119403,7,102.0,40.0,94.0,0.8142717616536335,0.6139817629179332,True
+random_rate0.1_seed94_s18-9_g4-1,94,0.1,random,"18,9","4,1",open space; multiple alternative routes,22.0,1.0,0.09562841530054644,1,106.0,34.0,87.0,0.8398529893306436,0.3224043715846995,True
+random_rate0.1_seed70_s19-16_g8-6,70,0.1,random,"19,16","8,6",open space; multiple alternative routes,21.0,1.0,0.08991825613079019,3,124.0,40.0,89.0,0.6234241473902149,0.4359673024523161,True
+random_rate0.1_seed96_s17-16_g1-10,96,0.1,random,"17,16","1,10",open space; multiple alternative routes,22.0,1.0,0.08991825613079019,2,94.0,35.0,84.0,0.7836470283994232,0.2970027247956403,True
+random_rate0.1_seed78_s5-14_g15-3,78,0.1,random,"5,14","15,3",open space; multiple alternative routes,21.0,1.0,0.09776536312849161,5,109.0,40.0,87.0,0.675996187262695,0.3715083798882682,True
+random_rate0.1_seed23_s6-18_g15-6,23,0.1,random,"6,18","15,6",open space; multiple alternative routes,21.0,1.0,0.09615384615384616,1,106.0,35.0,81.0,0.6309985171307574,0.44505494505494503,True
+random_rate0.1_seed9_s4-4_g15-14,9,0.1,random,"4,4","15,14",open space; multiple alternative routes,21.0,1.0,0.15273775216138327,9,86.0,33.0,76.0,0.6722104618116483,0.4610951008645533,True
+random_rate0.3_seed8_s19-16_g2-4,8,0.3,random,"19,16","2,4",dense obstacles; bottleneck; multiple alternative routes; maze-like,29.0,1.0,0.34146341463414637,35,124.0,57.0,99.0,4.393425450553753,0.922509225092251,False
+random_rate0.1_seed15_s16-0_g3-12,15,0.1,random,"16,0","3,12",open space; multiple alternative routes,25.0,1.0,0.07567567567567568,1,148.0,75.0,116.0,0.6882047503381162,0.5864864864864865,True
+random_rate0.1_seed69_s3-16_g15-9,69,0.1,random,"3,16","15,9",open space; multiple alternative routes,19.0,1.0,0.10277777777777777,3,88.0,29.0,70.0,0.6091332485278448,0.3972222222222222,True
+random_rate0.1_seed72_s9-16_g0-9,72,0.1,random,"9,16","0,9",open space; multiple alternative routes,16.0,1.0,0.06887052341597796,4,61.0,20.0,61.0,1.0861497882640723,0.24242424242424243,True
+random_rate0.2_seed15_s7-12_g4-0,15,0.2,random,"7,12","4,0",sparse obstacles,19.0,1.2666666666666666,0.19090909090909092,13,81.0,28.0,65.0,0.9145829474672358,0.6990881458966566,True
+random_rate0.1_seed12_s6-9_g17-17,12,0.1,random,"6,9","17,17",open space; multiple alternative routes,19.0,1.0,0.07608695652173914,2,103.0,50.0,85.0,0.8632550982590917,0.45231607629427795,True
+random_rate0.2_seed56_s4-0_g19-13,56,0.2,random,"4,0","19,13",sparse obstacles; multiple alternative routes,28.0,1.0,0.2578616352201258,20,117.0,56.0,89.0,0.8844095021016214,0.38801261829652994,True
+random_rate0.1_seed67_s6-13_g16-5,67,0.1,random,"6,13","16,5",open space; multiple alternative routes,18.0,1.0,0.14857142857142858,6,64.0,23.0,55.0,0.6063443229328254,0.6446991404011462,True
+random_rate0.1_seed7_s6-3_g13-12,7,0.1,random,"6,3","13,12",open space; multiple alternative routes,16.0,1.0,0.10955056179775281,6,63.0,17.0,49.0,0.5579902024081583,0.4747191011235955,True
+random_rate0.1_seed90_s1-4_g13-11,90,0.1,random,"1,4","13,11",open space; multiple alternative routes,19.0,1.0,0.1295774647887324,8,96.0,30.0,62.0,0.7041931142269725,0.571830985915493,True
+random_rate0.1_seed95_s11-10_g19-2,95,0.1,random,"11,10","19,2",open space; multiple alternative routes,16.0,1.0,0.09090909090909091,1,75.0,20.0,51.0,0.8361922915686261,0.3608815426997245,True
+random_rate0.1_seed89_s5-13_g15-17,89,0.1,random,"5,13","15,17",open space; multiple alternative routes,14.0,1.0,0.10306406685236769,6,48.0,18.0,49.0,0.6586044372296801,0.46218487394957986,True
+random_rate0.1_seed16_s16-14_g8-3,16,0.1,random,"16,14","8,3",open space; multiple alternative routes,19.0,1.0,0.11614730878186968,3,85.0,25.0,54.0,0.6476016590218706,0.45609065155807366,True
+random_rate0.2_seed59_s0-10_g14-0,59,0.2,random,"0,10","14,0",sparse obstacles; multiple alternative routes,24.0,1.0,0.2468354430379747,13,71.0,42.0,74.0,0.8645917507909959,0.5548387096774193,True
+random_rate0.1_seed31_s4-14_g11-7,31,0.1,random,"4,14","11,7",open space; multiple alternative routes,14.0,1.0,0.06906077348066299,1,51.0,18.0,46.0,0.5151269593950134,0.4116022099447514,True
+random_rate0.1_seed84_s9-12_g3-4,84,0.1,random,"9,12","3,4",open space; multiple alternative routes,14.0,1.0,0.11570247933884298,2,49.0,15.0,41.0,0.7450538167611955,0.418732782369146,True
+random_rate0.2_seed21_s5-16_g12-0,21,0.2,random,"5,16","12,0",sparse obstacles,23.0,1.0,0.24921135646687698,14,91.0,34.0,59.0,0.7443634516830686,0.6170886075949367,True
+random_rate0.1_seed22_s6-1_g1-10,22,0.1,random,"6,1","1,10",open space; multiple alternative routes,14.0,1.0,0.12011173184357542,5,43.0,15.0,40.0,0.8633732740772503,0.39664804469273746,True
+random_rate0.4_seed24_s11-6_g5-17,24,0.4,random,"11,6","5,17",maze-like; large obstacle block; narrow corridor; bottleneck,23.0,1.3529411764705883,0.5298804780876494,85,57.0,32.0,86.0,3.6024595292929176,0.705607476635514,True
+random_rate0.1_seed40_s15-19_g9-9,40,0.1,random,"15,19","9,9",open space; multiple alternative routes,16.0,1.0,0.10704225352112676,4,71.0,21.0,46.0,0.5759948490371167,0.5126760563380282,True
+random_rate0.2_seed46_s18-19_g0-2,46,0.2,random,"18,19","0,2",sparse obstacles; bottleneck; multiple alternative routes,35.0,1.0,0.3322475570032573,24,153.0,128.0,158.0,1.3266801200929235,0.7967213114754098,True
+random_rate0.2_seed96_s0-13_g19-1,96,0.2,random,"0,13","19,1",sparse obstacles; multiple alternative routes,31.0,1.0,0.22560975609756098,14,147.0,58.0,83.0,1.1161422097101443,0.3323170731707317,True
+random_rate0.1_seed37_s9-7_g1-14,37,0.1,random,"9,7","1,14",open space; multiple alternative routes,15.0,1.0,0.1323943661971831,8,60.0,21.0,44.0,0.9132582291034655,0.6384180790960452,True
+random_rate0.3_seed84_s15-11_g15-0,84,0.3,random,"15,11","15,0",dense obstacles; narrow corridor; bottleneck; maze-like,17.0,1.5454545454545454,0.378839590443686,34,46.0,23.0,65.0,2.6684417406717937,0.8315789473684211,True
+random_rate0.1_seed11_s14-19_g10-4,11,0.1,random,"14,19","10,4",open space; multiple alternative routes,19.0,1.0,0.1,3,74.0,20.0,42.0,1.0504297733306884,0.325,True
+random_rate0.1_seed24_s4-4_g19-1,24,0.1,random,"4,4","19,1",open space; multiple alternative routes,18.0,1.0,0.07588075880758807,0,58.0,19.0,41.0,1.11757320052563,0.3956639566395664,True
+random_rate0.1_seed28_s11-6_g17-0,28,0.1,random,"11,6","17,0",open space; multiple alternative routes,12.0,1.0,0.13128491620111732,4,40.0,16.0,38.0,0.8708418839785899,0.3865546218487395,True
+random_rate0.1_seed60_s17-7_g2-3,60,0.1,random,"17,7","2,3",open space; multiple alternative routes,19.0,1.0,0.0881542699724518,1,68.0,20.0,41.0,0.6922632069955515,0.33608815426997246,True
+random_rate0.2_seed66_s14-13_g5-7,66,0.2,random,"14,13","5,7",sparse obstacles; multiple alternative routes,15.0,1.0,0.2807570977917981,20,52.0,16.0,36.0,0.8396572890735808,0.653968253968254,True
+random_rate0.2_seed10_s16-19_g4-10,10,0.2,random,"16,19","4,10",sparse obstacles; multiple alternative routes,21.0,1.0,0.2939297124600639,21,69.0,27.0,46.0,1.0346292943433166,0.5305466237942122,True
+random_rate0.1_seed32_s14-7_g0-11,32,0.1,random,"14,7","0,11",open space,18.0,1.0,0.15072463768115943,1,52.0,19.0,38.0,0.7753086003704347,0.37681159420289856,True
+random_rate0.1_seed38_s7-7_g11-16,38,0.1,random,"7,7","11,16",open space; multiple alternative routes,13.0,1.0,0.12044817927170869,5,43.0,14.0,33.0,0.5845177761312961,0.4341736694677871,True
+random_rate0.1_seed46_s1-16_g7-5,46,0.1,random,"1,16","7,5",open space; multiple alternative routes,17.0,1.0,0.11235955056179775,2,61.0,20.0,39.0,0.6215676970863611,0.7471910112359551,True
+random_rate0.3_seed78_s9-11_g12-0,78,0.3,random,"9,11","12,0",dense obstacles; narrow corridor; bottleneck; multiple alternative routes; maze-like,18.0,1.2857142857142858,0.4199288256227758,50,61.0,37.0,56.0,4.376870729353117,0.427536231884058,True
+random_rate0.1_seed0_s6-19_g7-3,0,0.1,random,"6,19","7,3",open space; multiple alternative routes,21.0,1.2352941176470589,0.075,2,88.0,41.0,59.0,0.602378211915493,0.5444444444444444,True
+random_rate0.2_seed57_s18-4_g4-5,57,0.2,random,"18,4","4,5",sparse obstacles; multiple alternative routes,17.0,1.1333333333333333,0.25,13,36.0,18.0,51.0,1.5952987986005795,0.8694267515923567,False
+random_rate0.1_seed81_s18-5_g5-9,81,0.1,random,"18,5","5,9",open space; multiple alternative routes,17.0,1.0,0.1151685393258427,5,57.0,18.0,36.0,0.5883849924534894,0.49157303370786515,True
+random_rate0.2_seed54_s0-8_g6-18,54,0.2,random,"0,8","6,18",sparse obstacles; multiple alternative routes,16.0,1.0,0.209375,14,51.0,20.0,37.0,0.8401575553342231,0.6509433962264151,True
+random_rate0.2_seed74_s17-16_g7-9,74,0.2,random,"17,16","7,9",sparse obstacles; multiple alternative routes,17.0,1.0,0.24367088607594936,14,53.0,20.0,37.0,0.6935549298922221,0.5936507936507937,True
+random_rate0.1_seed20_s10-15_g15-19,20,0.1,random,"10,15","15,19",open space; multiple alternative routes,9.0,1.0,0.13068181818181818,5,29.0,13.0,31.0,0.8266029767692089,0.4005681818181818,True
+random_rate0.3_seed45_s4-14_g18-5,45,0.3,random,"4,14","18,5",dense obstacles; bottleneck; multiple alternative routes; maze-like,23.0,1.0,0.2895622895622896,27,78.0,34.0,50.0,1.7669307084716097,0.5578231292517006,True
+random_rate0.2_seed49_s5-16_g1-12,49,0.2,random,"5,16","1,12",sparse obstacles; multiple alternative routes,8.0,1.0,0.24922118380062305,15,25.0,9.0,25.0,0.7071273365867472,0.7165109034267912,True
+random_rate0.1_seed56_s14-16_g11-3,56,0.1,random,"14,16","11,3",open space; multiple alternative routes,16.0,1.0,0.09264305177111716,3,51.0,17.0,33.0,0.5931945818744294,0.40273972602739727,True
+random_rate0.1_seed41_s16-19_g16-6,41,0.1,random,"16,19","16,6",open space; multiple alternative routes,17.0,1.3076923076923077,0.08767123287671233,2,55.0,24.0,39.0,0.6454054231513037,0.4712328767123288,True
+random_rate0.1_seed14_s6-9_g12-14,14,0.1,random,"6,9","12,14",open space; bottleneck; multiple alternative routes,11.0,1.0,0.08196721311475409,5,37.0,13.0,27.0,0.7325811438221749,0.4972677595628415,True
+random_rate0.1_seed18_s18-0_g15-7,18,0.1,random,"18,0","15,7",open space; multiple alternative routes,10.0,1.0,0.059782608695652176,5,27.0,11.0,25.0,0.656240848419459,0.38315217391304346,True
+random_rate0.1_seed45_s15-14_g12-19,45,0.1,random,"15,14","12,19",open space; multiple alternative routes,8.0,1.0,0.09166666666666666,5,23.0,9.0,27.0,0.754166161781566,0.4763231197771588,True
+random_rate0.4_seed47_s5-13_g18-8,47,0.4,random,"5,13","18,8",maze-like; narrow corridor; bottleneck; multiple alternative routes,24.0,1.3333333333333333,0.5059760956175299,52,80.0,64.0,78.0,3.844814162158487,0.38190954773869346,True
+random_rate0.1_seed83_s11-12_g15-4,83,0.1,random,"11,12","15,4",open space; multiple alternative routes,12.0,1.0,0.10497237569060773,4,32.0,13.0,27.0,0.5645423363585499,0.4419889502762431,True
+random_rate0.1_seed39_s3-15_g18-12,39,0.1,random,"3,15","18,12",open space; multiple alternative routes,18.0,1.0,0.14697406340057637,5,62.0,20.0,33.0,0.7303528633652902,0.4956268221574344,True
+random_rate0.2_seed41_s5-17_g14-8,41,0.2,random,"5,17","14,8",sparse obstacles; multiple alternative routes,18.0,1.0,0.24691358024691357,17,67.0,25.0,38.0,0.8255746162797216,0.6833855799373041,True
+random_rate0.1_seed49_s18-2_g10-13,49,0.1,random,"18,2","10,13",open space; multiple alternative routes,19.0,1.0,0.09776536312849161,0,61.0,35.0,48.0,0.7131816353544843,0.6759776536312849,True
+random_rate0.2_seed67_s13-13_g6-19,67,0.2,random,"13,13","6,19",sparse obstacles; multiple alternative routes,13.0,1.0,0.28434504792332266,8,32.0,14.0,27.0,0.965512759432532,0.7427652733118971,True
+random_rate0.2_seed72_s10-0_g13-17,72,0.2,random,"10,0","13,17",sparse obstacles; multiple alternative routes,22.0,1.1,0.21806853582554517,11,78.0,32.0,45.0,1.0960408677128042,0.5611285266457681,True
+random_rate0.3_seed74_s5-3_g10-12,74,0.3,random,"5,3","10,12",dense obstacles; narrow corridor; bottleneck; multiple alternative routes; maze-like,14.0,1.0,0.43109540636042404,43,46.0,15.0,28.0,1.579412831355342,0.7841726618705036,True
+random_rate0.2_seed77_s3-0_g14-15,77,0.2,random,"3,0","14,15",sparse obstacles; bottleneck; multiple alternative routes,26.0,1.0,0.28938906752411575,18,106.0,51.0,64.0,0.8144142181163467,0.6763754045307443,True
+random_rate0.2_seed89_s6-16_g16-8,89,0.2,random,"6,16","16,8",sparse obstacles; multiple alternative routes,18.0,1.0,0.24458204334365324,14,62.0,26.0,39.0,0.7240653314627707,0.6125,True
+random_rate0.3_seed10_s2-14_g11-17,10,0.3,random,"2,14","11,17",dense obstacles; narrow corridor; bottleneck; multiple alternative routes; maze-like,18.0,1.5,0.3797909407665505,35,48.0,24.0,36.0,1.480395576207216,0.7364620938628159,True
+random_rate0.1_seed13_s6-8_g0-11,13,0.1,random,"6,8","0,11",open space; multiple alternative routes,9.0,1.0,0.10803324099722991,4,22.0,10.0,28.0,1.0379154978526963,0.26666666666666666,True
+random_rate0.2_seed39_s7-0_g18-13,39,0.2,random,"7,0","18,13",sparse obstacles; bottleneck; multiple alternative routes,24.0,1.0,0.30944625407166126,29,92.0,31.0,43.0,0.899006987758989,0.7227722772277227,True
+random_rate0.4_seed95_s7-19_g17-10,95,0.4,random,"7,19","17,10",maze-like; large obstacle block; narrow corridor; bottleneck,29.0,1.5263157894736843,0.5573770491803278,79,60.0,33.0,45.0,7.751147866083516,0.45555555555555555,True
+random_rate0.1_seed36_s10-12_g8-0,36,0.1,random,"10,12","8,0",open space; multiple alternative routes,14.0,1.0,0.06970509383378017,3,27.0,16.0,29.0,0.6885606930978176,0.49865951742627346,True
+random_rate0.2_seed45_s1-11_g1-0,45,0.2,random,"1,11","1,0",sparse obstacles; bottleneck,15.0,1.3636363636363635,0.18404907975460122,6,31.0,20.0,34.0,1.8591359544683386,0.691358024691358,True
+random_rate0.1_seed51_s8-17_g6-10,51,0.1,random,"8,17","6,10",open space; multiple alternative routes,11.0,1.2222222222222223,0.09641873278236915,3,37.0,19.0,30.0,0.8523414334892898,0.3415977961432507,True
+random_rate0.2_seed53_s3-3_g3-18,53,0.2,random,"3,3","3,18",sparse obstacles; bottleneck,21.0,1.4,0.2043343653250774,12,54.0,27.0,38.0,1.0665901427313407,0.41304347826086957,True
+random_rate0.1_seed68_s16-10_g12-15,68,0.1,random,"16,10","12,15",open space; multiple alternative routes,9.0,1.0,0.11420612813370473,10,27.0,10.0,21.0,0.5519803982425201,0.5236768802228412,True
+random_rate0.2_seed75_s12-12_g5-0,75,0.2,random,"12,12","5,0",sparse obstacles,19.0,1.0,0.26666666666666666,18,44.0,33.0,48.0,0.82322016954422,0.5333333333333333,True
+random_rate0.1_seed92_s16-1_g0-2,92,0.1,random,"16,1","0,2",open space,17.0,1.0,0.08086253369272237,5,29.0,18.0,37.0,1.0042112659251272,0.3611859838274933,True
+random_rate0.1_seed1_s19-11_g8-9,1,0.1,random,"19,11","8,9",open space; multiple alternative routes,13.0,1.0,0.12394366197183099,12,35.0,14.0,24.0,0.6311601541411709,0.5633802816901409,True
+random_rate0.3_seed21_s1-18_g17-16,21,0.3,random,"1,18","17,16",dense obstacles; narrow corridor; bottleneck; multiple alternative routes; maze-like,24.0,1.3333333333333333,0.4234875444839858,40,75.0,61.0,71.0,2.557905247818262,0.8447653429602888,True
+random_rate0.1_seed27_s9-11_g6-1,27,0.1,random,"9,11","6,1",open space; multiple alternative routes,13.0,1.0,0.08516483516483517,1,38.0,14.0,24.0,0.7845652740407776,0.40934065934065933,True
+random_rate0.1_seed54_s3-18_g6-13,54,0.1,random,"3,18","6,13",open space,8.0,1.0,0.0856353591160221,4,21.0,9.0,19.0,0.6178691234048559,0.40331491712707185,True
+random_rate0.3_seed54_s19-11_g0-4,54,0.3,random,"19,11","0,4",dense obstacles; narrow corridor; bottleneck; maze-like,26.0,1.0,0.40942028985507245,34,72.0,40.0,50.0,1.7567299718617415,0.8237704918032787,True
+random_rate0.3_seed6_s18-7_g4-13,6,0.3,random,"18,7","4,13",dense obstacles; narrow corridor; bottleneck; maze-like,20.0,1.0,0.47330960854092524,52,43.0,32.0,42.0,1.8617850784608658,0.6914893617021277,True
+random_rate0.3_seed12_s8-19_g16-13,12,0.3,random,"8,19","16,13",dense obstacles; narrow corridor; bottleneck; multiple alternative routes; maze-like,14.0,1.0,0.38596491228070173,33,39.0,18.0,27.0,1.7188220847930227,0.7392857142857143,True
+random_rate0.2_seed3_s3-7_g19-1,3,0.2,random,"3,7","19,1",sparse obstacles; bottleneck; multiple alternative routes,22.0,1.0,0.21846153846153846,8,37.0,28.0,43.0,2.5803462248582107,0.9076923076923077,True
+random_rate0.2_seed35_s9-14_g4-1,35,0.2,random,"9,14","4,1",sparse obstacles; multiple alternative routes,18.0,1.0,0.30844155844155846,17,46.0,19.0,28.0,0.8428821908800226,0.5394736842105263,True
+random_rate0.1_seed74_s1-10_g8-8,74,0.1,random,"1,10","8,8",open space; multiple alternative routes,9.0,1.0,0.07901907356948229,2,24.0,10.0,19.0,0.6067253179056443,0.3106267029972752,True
+random_rate0.1_seed86_s4-13_g1-18,86,0.1,random,"4,13","1,18",open space; multiple alternative routes,8.0,1.0,0.0821917808219178,4,18.0,9.0,19.0,1.0671389904740738,0.3698630136986301,True
+random_rate0.2_seed92_s12-11_g4-9,92,0.2,random,"12,11","4,9",sparse obstacles,12.0,1.2,0.20118343195266272,12,24.0,13.0,22.0,0.8249101243493111,0.8249258160237388,True
+random_rate0.3_seed22_s5-2_g17-17,22,0.3,random,"5,2","17,17",dense obstacles; narrow corridor; bottleneck; multiple alternative routes; maze-like,27.0,1.0,0.38848920863309355,36,66.0,39.0,47.0,1.8876009021814053,0.7230769230769231,True
+random_rate0.2_seed24_s14-2_g10-14,24,0.2,random,"14,2","10,14",sparse obstacles; multiple alternative routes,22.0,1.375,0.21604938271604937,19,66.0,38.0,46.0,0.8514535446469629,0.47058823529411764,True
+random_rate0.2_seed43_s5-8_g0-1,43,0.2,random,"5,8","0,1",sparse obstacles; bottleneck; multiple alternative routes,12.0,1.0,0.24299065420560748,19,25.0,14.0,22.0,2.1545561836950435,0.37735849056603776,True
+random_rate0.1_seed64_s3-10_g12-8,64,0.1,random,"3,10","12,8",open space; multiple alternative routes,11.0,1.0,0.10674157303370786,3,28.0,12.0,20.0,0.644076032250115,0.3455056179775281,True
+random_rate0.2_seed64_s19-9_g8-14,64,0.2,random,"19,9","8,14",sparse obstacles; bottleneck; multiple alternative routes,20.0,1.25,0.21904761904761905,29,63.0,29.0,37.0,1.1256902582115598,0.7301587301587301,True
+random_rate0.1_seed82_s13-3_g16-18,82,0.1,random,"13,3","16,18",open space,18.0,1.0,0.09041095890410959,7,44.0,19.0,27.0,0.8008663887669752,0.4065934065934066,True
+random_rate0.2_seed91_s7-12_g6-18,91,0.2,random,"7,12","6,18",sparse obstacles; multiple alternative routes,9.0,1.2857142857142858,0.22935779816513763,20,21.0,10.0,18.0,1.030773843512123,0.2962962962962963,True
+random_rate0.2_seed34_s7-12_g18-15,34,0.2,random,"7,12","18,15",sparse obstacles; multiple alternative routes,14.0,1.0,0.18154761904761904,10,31.0,15.0,22.0,0.6675730728145156,0.4494047619047619,True
+random_rate0.1_seed48_s7-3_g8-18,48,0.1,random,"7,3","8,18",open space,20.0,1.25,0.1005586592178771,4,64.0,37.0,44.0,1.1506030994087624,0.25977653631284914,True
+random_rate0.1_seed58_s16-15_g19-5,58,0.1,random,"16,15","19,5",open space; multiple alternative routes,13.0,1.0,0.06486486486486487,2,42.0,14.0,21.0,0.7563301243894809,0.4486486486486487,True
+random_rate0.3_seed66_s14-14_g17-1,66,0.3,random,"14,14","17,1",dense obstacles; narrow corridor; bottleneck; maze-like,20.0,1.25,0.4562043795620438,50,66.0,45.0,52.0,2.440609271455955,0.4870848708487085,True
+random_rate0.3_seed72_s19-0_g7-7,72,0.3,random,"19,0","7,7",dense obstacles; narrow corridor; bottleneck; multiple alternative routes; maze-like,19.0,1.0,0.375,42,44.0,23.0,30.0,1.9111283145607991,0.773851590106007,True
+random_rate0.1_seed80_s10-5_g18-8,80,0.1,random,"10,5","18,8",open space; multiple alternative routes,11.0,1.0,0.09392265193370165,3,30.0,12.0,19.0,0.7970290192253682,0.4143646408839779,True
+random_rate0.4_seed9_s18-12_g3-19,9,0.4,random,"18,12","3,19",maze-like; large obstacle block; narrow corridor; bottleneck,24.0,1.0909090909090908,0.6710526315789473,111,47.0,40.0,76.0,7.076669808091788,0.7586206896551724,True
+random_rate0.3_seed1_s2-5_g9-3,1,0.3,random,"2,5","9,3",dense obstacles; narrow corridor; bottleneck; multiple alternative routes; maze-like,11.0,1.2222222222222223,0.40441176470588236,42,31.0,18.0,24.0,2.279775900367633,0.867704280155642,True
+random_rate0.2_seed18_s6-14_g13-8,18,0.2,random,"6,14","13,8",sparse obstacles; multiple alternative routes,13.0,1.0,0.19814241486068113,14,35.0,17.0,23.0,0.7634851819610003,0.6366459627329193,True
+random_rate0.2_seed33_s17-12_g14-8,33,0.2,random,"17,12","14,8",sparse obstacles; multiple alternative routes,7.0,1.0,0.23510971786833856,25,18.0,8.0,14.0,0.7520794328477315,0.6144200626959248,True
+random_rate0.1_seed63_s14-19_g16-10,63,0.1,random,"14,19","16,10",open space; multiple alternative routes,11.0,1.0,0.08767123287671233,4,28.0,12.0,18.0,0.5064677206212527,0.5561643835616439,True
+random_rate0.4_seed79_s8-14_g16-10,79,0.4,random,"8,14","16,10",maze-like; large obstacle block; narrow corridor; bottleneck; multiple alternative routes,14.0,1.1666666666666667,0.6283185840707964,96,46.0,31.0,37.0,2.41050490436938,0.6711409395973155,True
+random_rate0.3_seed80_s9-14_g11-5,80,0.3,random,"9,14","11,5",maze-like; large obstacle block; narrow corridor; bottleneck; multiple alternative routes,17.0,1.5454545454545454,0.4752851711026616,60,28.0,22.0,28.0,2.683159478748521,0.6879432624113475,True
+random_rate0.1_seed85_s11-0_g19-3,85,0.1,random,"11,0","19,3",open space; multiple alternative routes,11.0,1.0,0.05929919137466307,0,31.0,14.0,20.0,0.8566643095241403,0.5795148247978437,True
+random_rate0.3_seed87_s2-17_g6-4,87,0.3,random,"2,17","6,4",dense obstacles; narrow corridor; bottleneck; maze-like,25.0,1.4705882352941178,0.41544117647058826,72,42.0,36.0,47.0,5.7616682576953915,0.6578947368421053,True
+random_rate0.3_seed19_s4-11_g11-15,19,0.3,random,"4,11","11,15",dense obstacles; large obstacle block; narrow corridor; bottleneck; multiple alternative routes; maze-like,11.0,1.0,0.43911439114391143,39,29.0,13.0,18.0,3.1192086536185184,0.6879699248120301,True
+random_rate0.4_seed2_s7-7_g14-7,2,0.4,random,"7,7","14,7",maze-like; narrow corridor; bottleneck; multiple alternative routes,11.0,1.5714285714285714,0.5378486055776892,71,23.0,14.0,19.0,1.4765104681861645,0.8775510204081632,True
+random_rate0.3_seed27_s7-15_g19-16,27,0.3,random,"7,15","19,16",dense obstacles; narrow corridor; bottleneck; multiple alternative routes; maze-like,15.0,1.1538461538461537,0.36610169491525424,52,35.0,16.0,21.0,1.4334234528482173,0.7437722419928826,True
+random_rate0.4_seed37_s5-13_g15-8,37,0.4,random,"5,13","15,8",maze-like; narrow corridor; bottleneck; multiple alternative routes,17.0,1.1333333333333333,0.6265560165975104,104,50.0,32.0,37.0,3.799942151705424,0.6222222222222222,True
+random_rate0.2_seed44_s13-18_g3-15,44,0.2,random,"13,18","3,15",sparse obstacles; multiple alternative routes,13.0,1.0,0.25483870967741934,12,31.0,14.0,19.0,0.8237111227500518,0.6324503311258278,True
+random_rate0.2_seed73_s6-15_g12-15,73,0.2,random,"6,15","12,15",sparse obstacles; multiple alternative routes,8.0,1.3333333333333333,0.2553846153846154,18,18.0,9.0,14.0,0.7587928781199381,0.6811145510835913,True
+random_rate0.2_seed83_s2-9_g9-5,83,0.2,random,"2,9","9,5",sparse obstacles; multiple alternative routes,11.0,1.0,0.1831831831831832,13,28.0,15.0,20.0,0.7358686737828068,0.6696696696696697,True
+random_rate0.1_seed93_s6-8_g2-11,93,0.1,random,"6,8","2,11",open space; multiple alternative routes,7.0,1.0,0.10674157303370786,5,18.0,8.0,13.0,0.7170199509919359,0.547752808988764,True
+random_rate0.1_seed99_s10-12_g12-1,99,0.1,random,"10,12","12,1",open space; multiple alternative routes,15.0,1.1538461538461537,0.09418282548476455,5,55.0,18.0,23.0,0.7333986891273646,0.6177285318559557,True

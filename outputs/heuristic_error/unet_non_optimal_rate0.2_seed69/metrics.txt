@@ -1,0 +1,17 @@
+valid_cells: 310
+mean_error: -0.5440943244964845
+mae: 3.416515019247609
+mse: 18.83038925389068
+rmse: 4.33939964210381
+underestimate_rate: 0.49032258064516127
+overestimate_rate: 0.5096774193548387
+large_underestimate_rate: 0.3096774193548387
+large_overestimate_rate: 0.19032258064516128
+max_underestimate: -19.158981323242188
+max_overestimate: 9.417736053466797
+pct_pred_less_than_true: 49.03225806451613
+pct_pred_less_than_true_minus_3: 30.967741935483872
+min_prediction: 1.2642520666122437
+max_prediction: 34.35163116455078
+min_true_distance: 0
+max_true_distance: 39

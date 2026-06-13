@@ -1,0 +1,5 @@
+obstacle_rate,paired_maps,unet_better_count,mlp_table_better_count,tie_count,mean_unet_minus_mlp_expanded
+0.1,100,1,83,16,16.56
+0.2,100,16,65,19,6.09
+0.3,100,37,48,15,1.05
+0.4,100,35,37,28,2.32
