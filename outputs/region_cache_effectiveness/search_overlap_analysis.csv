@@ -1,0 +1,77 @@
+scope,map_size,structure_type,algorithm,cases,expanded_cells,tie_break_queried_cells,predicted_expanded_cell_overlap,expanded_search_coverage_ratio,predicted_tie_query_cell_overlap,tie_query_search_coverage_ratio,tie_queries_per_expanded_cell,overlap_observability
+overall,,,manhattan_astar,1500,52680805.0,0.0,,,,,0.0,no_unet
+overall,,,full_map_unet_tiebreak,1500,35243785.0,,35243785.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+overall,,,region_cache_patch_32,1500,28578004.0,29347464.0,,,29347464.0,1.0,1.026924903502708,tie_query_overlap_exact; expanded_overlap_not_logged
+overall,,,region_cache_patch_64,1500,30800245.0,31635419.0,,,31635419.0,1.0,1.0271158232669901,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size,100,,manhattan_astar,500,455584.0,0.0,,,,,0.0,no_unet
+map_size,100,,full_map_unet_tiebreak,500,256262.0,,256262.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size,100,,region_cache_patch_32,500,238880.0,256941.0,,,256941.0,1.0,1.0756069993302075,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size,100,,region_cache_patch_64,500,246151.0,266098.0,,,266098.0,1.0,1.081035624474408,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size,500,,manhattan_astar,500,11295936.0,0.0,,,,,0.0,no_unet
+map_size,500,,full_map_unet_tiebreak,500,7408225.0,,7408225.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size,500,,region_cache_patch_32,500,5943680.0,6130029.0,,,6130029.0,1.0,1.0313524617745236,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size,500,,region_cache_patch_64,500,6671151.0,6881388.0,,,6881388.0,1.0,1.0315143518712138,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size,1000,,manhattan_astar,500,40929285.0,0.0,,,,,0.0,no_unet
+map_size,1000,,full_map_unet_tiebreak,500,27579298.0,,27579298.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size,1000,,region_cache_patch_32,500,22395444.0,22960494.0,,,22960494.0,1.0,1.0252305781479483,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size,1000,,region_cache_patch_64,500,23882943.0,24487933.0,,,24487933.0,1.0,1.0253314677341063,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,bottleneck,manhattan_astar,100,169529.0,0.0,,,,,0.0,no_unet
+map_size_structure,100,bottleneck,full_map_unet_tiebreak,100,115303.0,,115303.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,100,bottleneck,region_cache_patch_32,100,109787.0,115409.0,,,115409.0,1.0,1.051208248699755,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,bottleneck,region_cache_patch_64,100,110074.0,116153.0,,,116153.0,1.0,1.0552264840016716,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,large_block,manhattan_astar,100,109576.0,0.0,,,,,0.0,no_unet
+map_size_structure,100,large_block,full_map_unet_tiebreak,100,35382.0,,35382.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,100,large_block,region_cache_patch_32,100,30081.0,34469.0,,,34469.0,1.0,1.1458728100794522,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,large_block,region_cache_patch_64,100,33470.0,38678.0,,,38678.0,1.0,1.1556020316701523,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,maze_like,manhattan_astar,100,6922.0,0.0,,,,,0.0,no_unet
+map_size_structure,100,maze_like,full_map_unet_tiebreak,100,5845.0,,5845.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,100,maze_like,region_cache_patch_32,100,5920.0,6167.0,,,6167.0,1.0,1.041722972972973,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,maze_like,region_cache_patch_64,100,5972.0,6122.0,,,6122.0,1.0,1.0251172136637643,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,narrow_corridor,manhattan_astar,100,101595.0,0.0,,,,,0.0,no_unet
+map_size_structure,100,narrow_corridor,full_map_unet_tiebreak,100,57092.0,,57092.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,100,narrow_corridor,region_cache_patch_32,100,52472.0,56672.0,,,56672.0,1.0,1.080042689434365,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,narrow_corridor,region_cache_patch_64,100,54753.0,59509.0,,,59509.0,1.0,1.0868628203020838,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,open_random,manhattan_astar,100,67962.0,0.0,,,,,0.0,no_unet
+map_size_structure,100,open_random,full_map_unet_tiebreak,100,42640.0,,42640.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,100,open_random,region_cache_patch_32,100,40620.0,44224.0,,,44224.0,1.0,1.0887247661250616,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,100,open_random,region_cache_patch_64,100,41882.0,45636.0,,,45636.0,1.0,1.0896327778043073,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,bottleneck,manhattan_astar,100,4098861.0,0.0,,,,,0.0,no_unet
+map_size_structure,500,bottleneck,full_map_unet_tiebreak,100,2992190.0,,2992190.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,500,bottleneck,region_cache_patch_32,100,2660734.0,2721770.0,,,2721770.0,1.0,1.0229395347298904,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,bottleneck,region_cache_patch_64,100,2884657.0,2944553.0,,,2944553.0,1.0,1.020763647116451,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,large_block,manhattan_astar,100,2907518.0,0.0,,,,,0.0,no_unet
+map_size_structure,500,large_block,full_map_unet_tiebreak,100,1587681.0,,1587681.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,500,large_block,region_cache_patch_32,100,806959.0,847792.0,,,847792.0,1.0,1.0506010838221025,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,large_block,region_cache_patch_64,100,1131345.0,1206180.0,,,1206180.0,1.0,1.066146931307426,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,maze_like,manhattan_astar,100,470.0,0.0,,,,,0.0,no_unet
+map_size_structure,500,maze_like,full_map_unet_tiebreak,100,345.0,,345.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,500,maze_like,region_cache_patch_32,100,343.0,296.0,,,296.0,1.0,0.8629737609329446,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,maze_like,region_cache_patch_64,100,343.0,296.0,,,296.0,1.0,0.8629737609329446,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,narrow_corridor,manhattan_astar,100,2503736.0,0.0,,,,,0.0,no_unet
+map_size_structure,500,narrow_corridor,full_map_unet_tiebreak,100,1673950.0,,1673950.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,500,narrow_corridor,region_cache_patch_32,100,1420245.0,1472568.0,,,1472568.0,1.0,1.0368408267587634,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,narrow_corridor,region_cache_patch_64,100,1533403.0,1583052.0,,,1583052.0,1.0,1.032378311507151,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,open_random,manhattan_astar,100,1785351.0,0.0,,,,,0.0,no_unet
+map_size_structure,500,open_random,full_map_unet_tiebreak,100,1154059.0,,1154059.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,500,open_random,region_cache_patch_32,100,1055399.0,1087603.0,,,1087603.0,1.0,1.0305135782770307,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,500,open_random,region_cache_patch_64,100,1121403.0,1147307.0,,,1147307.0,1.0,1.0230996350107855,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,bottleneck,manhattan_astar,100,17025207.0,0.0,,,,,0.0,no_unet
+map_size_structure,1000,bottleneck,full_map_unet_tiebreak,100,12761741.0,,12761741.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,1000,bottleneck,region_cache_patch_32,100,12052815.0,12254113.0,,,12254113.0,1.0,1.016701326619549,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,bottleneck,region_cache_patch_64,100,12304337.0,12468137.0,,,12468137.0,1.0,1.0133123792041783,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,large_block,manhattan_astar,100,9648517.0,0.0,,,,,0.0,no_unet
+map_size_structure,1000,large_block,full_map_unet_tiebreak,100,5082373.0,,5082373.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,1000,large_block,region_cache_patch_32,100,1478812.0,1598611.0,,,1598611.0,1.0,1.0810102974549842,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,large_block,region_cache_patch_64,100,2490554.0,2721568.0,,,2721568.0,1.0,1.092756069533124,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,maze_like,manhattan_astar,100,10982.0,0.0,,,,,0.0,no_unet
+map_size_structure,1000,maze_like,full_map_unet_tiebreak,100,10425.0,,10425.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,1000,maze_like,region_cache_patch_32,100,10778.0,10699.0,,,10699.0,1.0,0.9926702542215624,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,maze_like,region_cache_patch_64,100,10817.0,10693.0,,,10693.0,1.0,0.9885365628177868,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,narrow_corridor,manhattan_astar,100,8172946.0,0.0,,,,,0.0,no_unet
+map_size_structure,1000,narrow_corridor,full_map_unet_tiebreak,100,5035638.0,,5035638.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,1000,narrow_corridor,region_cache_patch_32,100,4545238.0,4704865.0,,,4704865.0,1.0,1.035119613098368,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,narrow_corridor,region_cache_patch_64,100,4484686.0,4626399.0,,,4626399.0,1.0,1.0315993137535158,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,open_random,manhattan_astar,100,6071633.0,0.0,,,,,0.0,no_unet
+map_size_structure,1000,open_random,full_map_unet_tiebreak,100,4689121.0,,4689121.0,1.0,,,,expanded_overlap_exact_full_map; tie_queries_not_logged
+map_size_structure,1000,open_random,region_cache_patch_32,100,4307801.0,4392206.0,,,4392206.0,1.0,1.0195935234705595,tie_query_overlap_exact; expanded_overlap_not_logged
+map_size_structure,1000,open_random,region_cache_patch_64,100,4592549.0,4661136.0,,,4661136.0,1.0,1.0149344078854683,tie_query_overlap_exact; expanded_overlap_not_logged

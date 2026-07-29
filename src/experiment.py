@@ -16,6 +16,7 @@ from model import (
     make_unet_heuristic,
     manhattan_heuristic,
 )
+from oracle_topk_tiebreak import ORACLE_TOPK_METHODS, run_oracle_topk_search
 from structured_maps import generate_structured_map, parse_structured_types
 
 
@@ -25,6 +26,29 @@ SEEDS = list(range(20))
 START = (0, 0)
 CORE_HEURISTIC_NAMES = ["dijkstra", "manhattan", "mlp_table", "unet"]
 ALL_HEURISTIC_NAMES = ["dijkstra", "manhattan", "mlp", "mlp_table", "unet", "hybrid_max_manhattan_unet"]
+EXTENDED_HEURISTIC_NAMES = ALL_HEURISTIC_NAMES + ["manhattan_unet_tiebreak"]
+TIEBREAK_CONTROL_HEURISTIC_NAMES = [
+    "manhattan",
+    "mlp_table",
+    "unet",
+    "manhattan_unet_tiebreak",
+    "manhattan_counter_tiebreak",
+    "manhattan_large_g_tiebreak",
+    "manhattan_small_g_tiebreak",
+    "manhattan_mlp_tiebreak",
+    "manhattan_true_distance_tiebreak",
+]
+ORACLE_TOPK_HEURISTIC_NAMES = [
+    "manhattan",
+    "manhattan_large_g_tiebreak",
+    "manhattan_mlp_tiebreak",
+    "manhattan_unet_tiebreak",
+    "manhattan_oracle_top1_tiebreak",
+    "manhattan_oracle_top2_tiebreak",
+    "manhattan_oracle_top4_tiebreak",
+    "manhattan_oracle_top8_tiebreak",
+    "manhattan_true_distance_tiebreak",
+]
 CHECKPOINT_CHOICES = {
     "compatible": "unet_heuristic.pt",
     "best": "unet_heuristic_best.pt",
@@ -93,9 +117,16 @@ def prediction_error_metrics(distance_grid, heuristic, goal):
     }
 
 
-def run_search(grid, start, goal, heuristic):
+def run_search(grid, start, goal, heuristic, secondary_heuristic=None, secondary_priority=None):
     start_time = time.perf_counter()
-    result = astar_search(grid, start, goal, heuristic)
+    result = astar_search(
+        grid,
+        start,
+        goal,
+        heuristic,
+        secondary_heuristic=secondary_heuristic,
+        secondary_priority=secondary_priority,
+    )
     runtime = time.perf_counter() - start_time
     return result, runtime
 
@@ -141,11 +172,13 @@ def result_row(
     runtime,
     optimal_cost,
     metrics,
+    tie_diagnostics=None,
 ):
     path_found = bool(result["path"])
     path_length = result["cost"]
     optimal = path_found and path_length == optimal_cost
 
+    tie_diagnostics = tie_diagnostics or {}
     return {
         "seed": seed,
         "map_size": map_size,
@@ -164,6 +197,16 @@ def result_row(
         "path_length": path_length,
         "expanded_nodes": result["expanded"],
         "runtime_seconds": runtime,
+        "expanded_diff_from_manhattan": "",
+        "expanded_diff_from_unet_tiebreak": "",
+        "expanded_diff_from_true_distance_tiebreak": "",
+        "oracle_benefit_capture": "",
+        "tie_episode_count": tie_diagnostics.get("tie_episode_count", ""),
+        "mean_tie_snapshot_size": tie_diagnostics.get("mean_tie_snapshot_size", ""),
+        "max_tie_snapshot_size": tie_diagnostics.get("max_tie_snapshot_size", ""),
+        "oracle_corrected_nodes": tie_diagnostics.get("oracle_corrected_nodes", ""),
+        "oracle_corrected_expansion_fraction": tie_diagnostics.get("oracle_corrected_expansion_fraction", ""),
+        "later_arrivals_into_active_primary_f": tie_diagnostics.get("later_arrivals_into_active_primary_f", ""),
         "skip_reason": "",
         **metrics,
     }
@@ -210,6 +253,16 @@ def empty_result_row(
         "path_length": -1,
         "expanded_nodes": 0,
         "runtime_seconds": 0.0,
+        "expanded_diff_from_manhattan": "",
+        "expanded_diff_from_unet_tiebreak": "",
+        "expanded_diff_from_true_distance_tiebreak": "",
+        "oracle_benefit_capture": "",
+        "tie_episode_count": "",
+        "mean_tie_snapshot_size": "",
+        "max_tie_snapshot_size": "",
+        "oracle_corrected_nodes": "",
+        "oracle_corrected_expansion_fraction": "",
+        "later_arrivals_into_active_primary_f": "",
         "skip_reason": skip_reason,
         "mae": "",
         "mse": "",
@@ -222,33 +275,73 @@ def empty_result_row(
     }
 
 
-def build_heuristics(methods, mlp_model, unet_model, grid, goal):
+def make_true_distance_tiebreak(distance_grid):
+    def heuristic(current, unused_goal):
+        value = distance_grid[current[0]][current[1]]
+        return float(value) if value >= 0 else float("inf")
+
+    return heuristic
+
+
+def build_heuristics(methods, mlp_model, unet_model, grid, goal, distance_grid=None):
     mlp_heuristic = None
     mlp_table_heuristic = None
     unet_heuristic = None
+    true_distance_heuristic = None
     heuristics = []
 
     for heuristic_name in methods:
         if heuristic_name == "dijkstra":
-            heuristics.append((heuristic_name, dijkstra_heuristic))
+            heuristics.append((heuristic_name, dijkstra_heuristic, None, None))
         elif heuristic_name == "manhattan":
-            heuristics.append((heuristic_name, manhattan_heuristic))
+            heuristics.append((heuristic_name, manhattan_heuristic, None, None))
         elif heuristic_name == "mlp":
             if mlp_heuristic is None:
                 mlp_heuristic = make_mlp_heuristic(mlp_model)
-            heuristics.append((heuristic_name, mlp_heuristic))
+            heuristics.append((heuristic_name, mlp_heuristic, None, None))
         elif heuristic_name == "mlp_table":
             if mlp_table_heuristic is None:
                 mlp_table_heuristic = make_mlp_table_heuristic(mlp_model, grid, goal)
-            heuristics.append((heuristic_name, mlp_table_heuristic))
+            heuristics.append((heuristic_name, mlp_table_heuristic, None, None))
         elif heuristic_name == "unet":
             if unet_heuristic is None:
                 unet_heuristic = make_unet_heuristic(unet_model, grid, goal)
-            heuristics.append((heuristic_name, unet_heuristic))
+            heuristics.append((heuristic_name, unet_heuristic, None, None))
         elif heuristic_name == "hybrid_max_manhattan_unet":
             if unet_heuristic is None:
                 unet_heuristic = make_unet_heuristic(unet_model, grid, goal)
-            heuristics.append((heuristic_name, make_hybrid_heuristic(unet_heuristic)))
+            heuristics.append((heuristic_name, make_hybrid_heuristic(unet_heuristic), None, None))
+        elif heuristic_name == "manhattan_unet_tiebreak":
+            if unet_heuristic is None:
+                unet_heuristic = make_unet_heuristic(unet_model, grid, goal)
+            heuristics.append((heuristic_name, manhattan_heuristic, unet_heuristic, None))
+        elif heuristic_name == "manhattan_counter_tiebreak":
+            heuristics.append((heuristic_name, manhattan_heuristic, None, lambda current, goal, g: 0.0))
+        elif heuristic_name == "manhattan_large_g_tiebreak":
+            heuristics.append((heuristic_name, manhattan_heuristic, None, lambda current, goal, g: -float(g)))
+        elif heuristic_name == "manhattan_small_g_tiebreak":
+            heuristics.append((heuristic_name, manhattan_heuristic, None, lambda current, goal, g: float(g)))
+        elif heuristic_name == "manhattan_mlp_tiebreak":
+            if mlp_table_heuristic is None:
+                mlp_table_heuristic = make_mlp_table_heuristic(mlp_model, grid, goal)
+            heuristics.append((heuristic_name, manhattan_heuristic, mlp_table_heuristic, None))
+        elif heuristic_name == "manhattan_true_distance_tiebreak":
+            if distance_grid is None:
+                raise ValueError("distance_grid is required for manhattan_true_distance_tiebreak")
+            if true_distance_heuristic is None:
+                true_distance_heuristic = make_true_distance_tiebreak(distance_grid)
+            heuristics.append((heuristic_name, manhattan_heuristic, true_distance_heuristic, None))
+        elif heuristic_name in ORACLE_TOPK_METHODS:
+            if unet_heuristic is None:
+                unet_heuristic = make_unet_heuristic(unet_model, grid, goal)
+            heuristics.append(
+                (
+                    heuristic_name,
+                    manhattan_heuristic,
+                    None,
+                    {"kind": "oracle_topk", "k": ORACLE_TOPK_METHODS[heuristic_name], "unet": unet_heuristic},
+                )
+            )
         else:
             raise ValueError(f"Unknown heuristic: {heuristic_name}")
 
@@ -274,6 +367,16 @@ def write_results_csv(output_path, rows):
         "path_length",
         "expanded_nodes",
         "runtime_seconds",
+        "expanded_diff_from_manhattan",
+        "expanded_diff_from_unet_tiebreak",
+        "expanded_diff_from_true_distance_tiebreak",
+        "oracle_benefit_capture",
+        "tie_episode_count",
+        "mean_tie_snapshot_size",
+        "max_tie_snapshot_size",
+        "oracle_corrected_nodes",
+        "oracle_corrected_expansion_fraction",
+        "later_arrivals_into_active_primary_f",
         "skip_reason",
         "mae",
         "mse",
@@ -338,6 +441,34 @@ def aggregate_results(rows):
         )
 
     return summary_rows
+
+
+def add_per_case_expansion_differences(map_results):
+    manhattan = map_results.get("manhattan", {}).get("row")
+    unet = map_results.get("manhattan_unet_tiebreak", {}).get("row")
+    oracle = map_results.get("manhattan_true_distance_tiebreak", {}).get("row")
+    if not manhattan:
+        return
+
+    manhattan_expanded = manhattan["expanded_nodes"]
+    unet_expanded = unet["expanded_nodes"] if unet else None
+    oracle_expanded = oracle["expanded_nodes"] if oracle else None
+    denominator = None
+    if unet_expanded is not None and oracle_expanded is not None:
+        denominator = unet_expanded - oracle_expanded
+
+    for payload in map_results.values():
+        row = payload["row"]
+        expanded = row["expanded_nodes"]
+        row["expanded_diff_from_manhattan"] = expanded - manhattan_expanded
+        if unet_expanded is not None:
+            row["expanded_diff_from_unet_tiebreak"] = expanded - unet_expanded
+        if oracle_expanded is not None:
+            row["expanded_diff_from_true_distance_tiebreak"] = expanded - oracle_expanded
+        if denominator and denominator > 0:
+            row["oracle_benefit_capture"] = (unet_expanded - expanded) / denominator
+        elif denominator is not None:
+            row["oracle_benefit_capture"] = ""
 
 
 def write_summary_csv(output_path, rows):
@@ -608,11 +739,23 @@ def run_experiments(
                             )
                         continue
 
-                    heuristics = build_heuristics(methods, mlp_model, unet_model, grid, goal)
+                    heuristics = build_heuristics(methods, mlp_model, unet_model, grid, goal, distance_grid)
                     map_results = {}
 
-                    for heuristic_name, heuristic in heuristics:
-                        result, runtime = run_search(grid, start, goal, heuristic)
+                    for heuristic_name, heuristic, secondary_heuristic, secondary_priority in heuristics:
+                        if isinstance(secondary_priority, dict) and secondary_priority.get("kind") == "oracle_topk":
+                            result, runtime = run_oracle_topk_search(
+                                grid,
+                                start,
+                                goal,
+                                secondary_priority["unet"],
+                                distance_grid,
+                                secondary_priority["k"],
+                            )
+                        else:
+                            result, runtime = run_search(
+                                grid, start, goal, heuristic, secondary_heuristic, secondary_priority
+                            )
                         metrics = prediction_error_metrics(distance_grid, heuristic, goal)
                         row = result_row(
                             seed,
@@ -628,9 +771,12 @@ def run_experiments(
                             runtime,
                             optimal_cost,
                             metrics,
+                            result.get("tie_diagnostics"),
                         )
                         rows.append(row)
                         map_results[heuristic_name] = {"row": row, "result": result}
+
+                    add_per_case_expansion_differences(map_results)
 
                     if collect_cases:
                         case_id = {
@@ -678,9 +824,9 @@ def parse_args():
     )
     parser.add_argument(
         "--methods",
-        choices=["core", "all"],
+        choices=["core", "all", "extended", "tiebreak_controls", "oracle_topk"],
         default="core",
-        help="core compares Dijkstra, Manhattan, MLP table, and U-Net. all also includes raw MLP and hybrid.",
+        help="core compares Dijkstra, Manhattan, MLP table, and U-Net. all also includes raw MLP and hybrid. extended adds Manhattan+U-Net tie-breaking. tiebreak_controls runs tie-breaking controls. oracle_topk runs partial oracle tie-set budgets.",
     )
     parser.add_argument(
         "--output-tag",
@@ -743,7 +889,16 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    methods = CORE_HEURISTIC_NAMES if args.methods == "core" else ALL_HEURISTIC_NAMES
+    if args.methods == "core":
+        methods = CORE_HEURISTIC_NAMES
+    elif args.methods == "all":
+        methods = ALL_HEURISTIC_NAMES
+    elif args.methods == "extended":
+        methods = EXTENDED_HEURISTIC_NAMES
+    elif args.methods == "tiebreak_controls":
+        methods = TIEBREAK_CONTROL_HEURISTIC_NAMES
+    else:
+        methods = ORACLE_TOPK_HEURISTIC_NAMES
     run_experiments(
         methods,
         args.checkpoint,

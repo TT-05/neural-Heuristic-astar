@@ -3,7 +3,7 @@
 import heapq
 
 
-def astar_search(grid, start, goal, heuristic, diagnostics=None):
+def astar_search(grid, start, goal, heuristic, diagnostics=None, secondary_heuristic=None, secondary_priority=None):
     """
     Perform A* search on the given grid from start to goal using the provided heuristic function.
 
@@ -13,6 +13,10 @@ def astar_search(grid, start, goal, heuristic, diagnostics=None):
     goal (tuple): The goal coordinates (x, y).
     heuristic (function): A function that takes two coordinates and returns the estimated cost to reach the goal.
     diagnostics (dict, optional): If provided, expanded-node diagnostics are appended here.
+    secondary_heuristic (function, optional): If provided, A* uses lexicographic
+        priority (g + heuristic, secondary_heuristic, tie_counter, g, node).
+    secondary_priority (function, optional): If provided, called as
+        secondary_priority(node, goal, g) and used instead of secondary_heuristic.
 
     Returns:
     dict: Search result with keys "path", "cost", and "expanded".
@@ -40,7 +44,18 @@ def astar_search(grid, start, goal, heuristic, diagnostics=None):
 
     open_set = []
     start_h = heuristic(start, goal)
-    heapq.heappush(open_set, (start_h, 0, start))  # (f, g, node)
+    tie_counter = 0
+
+    def secondary_score(node, node_g):
+        if secondary_priority is not None:
+            return secondary_priority(node, goal, node_g)
+        return secondary_heuristic(node, goal)
+
+    use_secondary_priority = secondary_heuristic is not None or secondary_priority is not None
+    if not use_secondary_priority:
+        heapq.heappush(open_set, (start_h, 0, start))  # (f, g, node)
+    else:
+        heapq.heappush(open_set, (start_h, secondary_score(start, 0), tie_counter, 0, start))
     came_from = {}
     g_score = {start: 0}
     expanded = 0
@@ -52,7 +67,10 @@ def astar_search(grid, start, goal, heuristic, diagnostics=None):
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
     while open_set:
-        f, current_g, current = heapq.heappop(open_set)
+        if not use_secondary_priority:
+            f, current_g, current = heapq.heappop(open_set)
+        else:
+            f, _, _, current_g, current = heapq.heappop(open_set)
 
         if current_g > g_score[current]:
             continue
@@ -61,14 +79,15 @@ def astar_search(grid, start, goal, heuristic, diagnostics=None):
 
         if diagnostics is not None and len(diagnostics["expanded_nodes"]) < diagnostics["max_expanded_logs"]:
             current_h = heuristic(current, goal)
-            diagnostics["expanded_nodes"].append(
-                {
-                    "node": current,
-                    "g": current_g,
-                    "h": current_h,
-                    "f": current_g + current_h,
-                }
-            )
+            entry = {
+                "node": current,
+                "g": current_g,
+                "h": current_h,
+                "f": current_g + current_h,
+            }
+            if use_secondary_priority:
+                entry["secondary_h"] = secondary_score(current, current_g)
+            diagnostics["expanded_nodes"].append(entry)
 
         if current == goal:
             path = [current]
@@ -99,7 +118,14 @@ def astar_search(grid, start, goal, heuristic, diagnostics=None):
                 g_score[neighbor] = tentative_g_score
                 came_from[neighbor] = current
                 f_score = tentative_g_score + heuristic(neighbor, goal)
-                heapq.heappush(open_set, (f_score, tentative_g_score, neighbor))
+                if not use_secondary_priority:
+                    heapq.heappush(open_set, (f_score, tentative_g_score, neighbor))
+                else:
+                    tie_counter += 1
+                    heapq.heappush(
+                        open_set,
+                        (f_score, secondary_score(neighbor, tentative_g_score), tie_counter, tentative_g_score, neighbor),
+                    )
 
     return {
         "path": [],

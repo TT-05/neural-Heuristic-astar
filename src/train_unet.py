@@ -289,4 +289,27 @@ def train_unet():
 
 
 if __name__ == "__main__":
-    train_unet()
+    # The original 500-map trainer remains the no-argument/default path.  The
+    # named loss-ablation modes explicitly select the fixed 5,000-map framework.
+    import sys
+
+    if "--ranking_mode" in sys.argv:
+        from run_ranking_ablation import main as run_ranking_ablation
+
+        run_ranking_ablation()
+        raise SystemExit
+
+    if "--loss_mode" in sys.argv:
+        from run_combined_loss_ablation import main as run_combined_loss_ablation
+
+        run_combined_loss_ablation()
+        raise SystemExit
+
+    ablation_modes = {"mse", "ranking", "consistency", "combined", "ranking_consistency", "all"}
+    requested = sys.argv[sys.argv.index("--loss") + 1] if "--loss" in sys.argv and sys.argv.index("--loss") + 1 < len(sys.argv) else None
+    if requested in ablation_modes:
+        from run_loss_ablation import main as run_loss_ablation
+
+        run_loss_ablation()
+    else:
+        train_unet()

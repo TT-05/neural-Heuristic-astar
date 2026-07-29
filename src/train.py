@@ -97,4 +97,11 @@ def train():
 
 
 if __name__ == "__main__":
-    train()
+    import sys
+
+    if "--ranking_lambda" in sys.argv:
+        from run_ranking_lambda_sweep import main as run_ranking_lambda_sweep
+
+        run_ranking_lambda_sweep()
+    else:
+        train()
