@@ -1,0 +1,4 @@
+map_size,structure_type,algorithm,full_map_mean_total_runtime_seconds,variant_mean_total_runtime_seconds,runtime_speedup_vs_full,runtime_reduction_fraction_vs_full,full_map_mean_expanded_nodes,variant_mean_expanded_nodes,expansion_reduction_fraction_vs_full,unet_forward_change_fraction_vs_full
+100,open_random,lazy_patch_32_no_cache,0.020206080000207294,0.1912448119999226,0.10565557198077337,-8.464716164538626,195.0,195.0,0.0,254.0
+100,open_random,region_cache_patch_32,0.020206080000207294,0.015440735999845856,1.3086215579625875,0.23583713418498542,195.0,195.0,0.0,2.0
+100,open_random,region_cache_patch_64,0.020206080000207294,0.01618583000004037,1.248380836828071,0.1989623915240205,195.0,195.0,0.0,1.0

@@ -1,0 +1,5 @@
+map_size,structure_type,algorithm,cases,mean_expanded_nodes,median_expanded_nodes,optimality_rate,mean_path_cost_gap,mean_unet_call_count,mean_unet_scored_node_count,mean_cache_hit_rate,mean_cached_region_count,mean_patch_extraction_seconds,mean_cache_lookup_seconds,mean_unet_inference_seconds,mean_full_map_inference_seconds,mean_astar_search_seconds,mean_total_runtime_seconds
+100,open_random,full_map_unet_tiebreak,1,195.0,195.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.06334668731689454,0.0007310120001875475,0.06407769931708208
+100,open_random,lazy_patch_32_no_cache,1,195.0,195.0,1.0,0.0,255.0,255.0,0.0,0.0,0.029976158002682496,0.0,0.1266408001482487,0.0,0.07633854784912181,0.232955506000053
+100,open_random,region_cache_patch_32,1,195.0,195.0,1.0,0.0,3.0,258.0,0.9883720930232558,3.0,0.0049616909996075265,1.9162002217854024e-05,0.0009675199985504151,0.0,0.0019409989995328942,0.00788937199990869
+100,open_random,region_cache_patch_64,1,195.0,195.0,1.0,0.0,2.0,257.0,0.9922178988326849,2.0,0.009622857000294971,1.8270001419296023e-05,0.005946368038654328,0.0,0.005183324959683887,0.02077082000005248

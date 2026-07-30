@@ -1,0 +1,2 @@
+case_id,map_size,structure_type,seed,obstacle_rate,grid_sha256,start,goal,optimal_cost
+size100_open_random_seed120260728,100,open_random,120260728,0.1,f9a2404b560cb2f41fc97dbebedee38e18920aa6c87c79ad0e443b795d07a10c,"78,29","81,69",47

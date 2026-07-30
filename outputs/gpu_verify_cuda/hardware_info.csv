@@ -1,0 +1,2 @@
+device,device_type,cuda_available,gpu_name,cuda_version,pytorch_version
+cuda,cuda,True,NVIDIA GeForce RTX 4070 Laptop GPU,12.8,2.11.0+cu128

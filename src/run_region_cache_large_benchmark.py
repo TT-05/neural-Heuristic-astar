@@ -35,6 +35,43 @@ CACHE_64_ALGORITHM = "region_cache_patch_64"
 ALL_ALGORITHMS = (FULL_ALGORITHM, NO_CACHE_ALGORITHM, CACHE_32_ALGORITHM, CACHE_64_ALGORITHM)
 
 
+def select_device(requested_device):
+    """Return an explicitly requested inference device without a silent fallback."""
+    if requested_device == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("--device cuda was requested, but torch.cuda.is_available() is False.")
+    return torch.device(requested_device)
+
+
+def cuda_inference_seconds(model, operation):
+    """Time one CUDA model forward with CUDA events, not a host wall clock."""
+    device = next(model.parameters()).device
+    if device.type != "cuda":
+        started = time.perf_counter()
+        return operation(), time.perf_counter() - started
+
+    # Synchronizing on both sides makes the event interval independent of
+    # preceding asynchronous preparation and of later host-side consumption.
+    torch.cuda.synchronize(device)
+    started = torch.cuda.Event(enable_timing=True)
+    finished = torch.cuda.Event(enable_timing=True)
+    started.record()
+    value = operation()
+    finished.record()
+    torch.cuda.synchronize(device)
+    return value, started.elapsed_time(finished) / 1000.0
+
+
+def hardware_info(device):
+    is_cuda = device.type == "cuda"
+    return {
+        "device": str(device),
+        "device_type": device.type,
+        "cuda_available": torch.cuda.is_available(),
+        "gpu_name": torch.cuda.get_device_name(device) if is_cuda else "",
+        "cuda_version": torch.version.cuda or "",
+        "pytorch_version": torch.__version__,
+    }
+
 def grid_hash(grid):
     text = "".join("".join(str(cell) for cell in row) for row in grid)
     return hashlib.sha256(text.encode("ascii")).hexdigest()
@@ -173,10 +210,12 @@ class TimedRegionCacheScorer(RegionCacheScorer):
         self.model_input[0, 1].zero_()
         self.model_input[0, 1, goal_row, goal_col] = 1.0
         self.patch_extraction_seconds += time.perf_counter() - started
-        started = time.perf_counter()
         with torch.inference_mode():
-            prediction = self.model(self.model_input).squeeze(0) * (2.0 * self.patch_size)
-        self.unet_inference_seconds += time.perf_counter() - started
+            prediction, inference_seconds = cuda_inference_seconds(
+                self.model,
+                lambda: self.model(self.model_input).squeeze(0) * (2.0 * self.patch_size),
+            )
+        self.unet_inference_seconds += inference_seconds
         prediction = prediction.detach().cpu().clone()
         self.regions.append({"top": top, "left": left, "prediction": prediction})
         # Writing every in-map coordinate preserves "most recent region wins"
@@ -236,10 +275,19 @@ class BatchedPatchScorer(PatchScorer):
                 goal_col = min(max(self.goal[1] - left, 0), self.patch_size - 1)
                 batch[index, 1, goal_row, goal_col] = 1.0
             self.patch_extraction_seconds += time.perf_counter() - started
-            started = time.perf_counter()
-            with torch.inference_mode():
-                predictions = self.model(batch).detach().cpu() * (2.0 * self.patch_size)
-            self.unet_inference_seconds += time.perf_counter() - started
+            if self.device.type == "cuda":
+                with torch.inference_mode():
+                    predictions, inference_seconds = cuda_inference_seconds(
+                        self.model,
+                        lambda: self.model(batch) * (2.0 * self.patch_size),
+                    )
+                self.unet_inference_seconds += inference_seconds
+                predictions = predictions.detach().cpu()
+            else:
+                started = time.perf_counter()
+                with torch.inference_mode():
+                    predictions = self.model(batch).detach().cpu() * (2.0 * self.patch_size)
+                self.unet_inference_seconds += time.perf_counter() - started
             self.unet_forward_count += 1
             for index, node in enumerate(batch_nodes):
                 value = max(0.0, float(predictions[index, self.radius, self.radius]))
@@ -261,6 +309,18 @@ def full_map_prediction(model, grid, goal):
     """
     started = time.perf_counter()
     device = next(model.parameters()).device
+    if device.type == "cuda":
+        rows, cols = len(grid), len(grid[0])
+        model_input = torch.zeros((1, 2, rows, cols), dtype=torch.float32, device=device)
+        model_input[0, 0].copy_(torch.tensor(grid, dtype=torch.float32, device=device))
+        model_input[0, 1, goal[0], goal[1]] = 1.0
+        with torch.inference_mode():
+            prediction, inference_seconds = cuda_inference_seconds(
+                model,
+                lambda: model(model_input).squeeze(0) * float(rows + cols),
+            )
+        return prediction.detach().cpu(), inference_seconds
+
     rows, cols = len(grid), len(grid[0])
     model_input = torch.zeros((1, 2, rows, cols), dtype=torch.float32, device=device)
     model_input[0, 0].copy_(torch.tensor(grid, dtype=torch.float32, device=device))
@@ -547,6 +607,12 @@ def parse_args():
     parser.add_argument("--skip-patch-64", action="store_true")
     parser.add_argument("--regenerate-cases", action="store_true")
     parser.add_argument("--report-only", action="store_true")
+    parser.add_argument(
+        "--device",
+        choices=("cpu", "cuda"),
+        default="cpu",
+        help="U-Net inference device; default cpu preserves the existing benchmark path.",
+    )
     return parser.parse_args()
 
 
@@ -563,6 +629,8 @@ def main():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     output_dir = os.path.join(root, args.output_dir)
     os.makedirs(output_dir, exist_ok=True)
+    device = select_device(args.device)
+    write_csv(os.path.join(output_dir, "hardware_info.csv"), [hardware_info(device)])
     default_algorithms = [FULL_ALGORITHM, NO_CACHE_ALGORITHM, CACHE_32_ALGORITHM]
     if not args.skip_patch_64:
         default_algorithms.append(CACHE_64_ALGORITHM)
@@ -584,9 +652,11 @@ def main():
     if not os.path.exists(checkpoint):
         raise FileNotFoundError(f"Checkpoint not found: {checkpoint}")
     torch.set_num_threads(4)
-    model = load_unet_heuristic(checkpoint)
+    model = load_unet_heuristic(checkpoint, device=device)
     with torch.inference_mode():
-        _ = model(grid_goal_tensor([[0] * 32 for _ in range(32)], (16, 16)).unsqueeze(0))
+        _ = model(grid_goal_tensor([[0] * 32 for _ in range(32)], (16, 16), device=device).unsqueeze(0))
+    if device.type == "cuda":
+        torch.cuda.synchronize(device)
     validate_semantics(model)
     cases = load_or_create_cases(output_dir, args.cases_per_structure, sizes, structures, args.regenerate_cases)
     partial_path = os.path.join(output_dir, "results_partial.csv")
